@@ -92,8 +92,8 @@ def get_next_spawn():
     Checks for the upcoming boss based on the current time and day.
     :return: Boss names string and time until spawn as datetime.timedelta.
     """
-    today_bosses = BOSS_TIMES[datetime.today().weekday()]
-    tomorrow_bosses = BOSS_TIMES[(datetime.today().weekday() + 1) % 6]
+    today_bosses = BOSS_TIMES[datetime.now(UTC).weekday()]
+    tomorrow_bosses = BOSS_TIMES[(datetime.now(UTC).weekday() + 1) % 6]
     current_time = datetime.now(UTC).time()
     for spawn in today_bosses.keys():
         spawn_time = spawn.time()
@@ -158,43 +158,85 @@ def close(_):
     root.destroy()
 
 
+def get_resized_font(amount):
+    global size, size_max, size_min
+    size += amount
+    size = size if size < size_max else size_max
+    size = size if size > size_min else size_min
+    return tkFont.Font(family="Lucida Grande", size=size, weight="bold")
+
+
+def size_up(_):
+    font = get_resized_font(2)
+    timer_label.configure(font=font)
+    name1_label.configure(font=font)
+    name2_label.configure(font=font)
+
+
+def size_down(_):
+    font = get_resized_font(-2)
+    timer_label.configure(font=font)
+    name1_label.configure(font=font)
+    name2_label.configure(font=font)
+
+
 # Tk window configs
 root = Tk()
 root.wm_attributes('-transparentcolor', 'black')
-root.geometry("200x150")
+root.geometry("300x200")
 root.overrideredirect(1)
 root.call('wm', 'attributes', '.', '-topmost', True)
 
-# Fonts
-font_style_text = tkFont.Font(family="Lucida Grande", size=21, weight="bold")
-font_style_big = tkFont.Font(family="Lucida Grande", size=14, weight="bold")
+# Text settings
+size = 21
+size_max = 50
+size_min = 10
+fontcolor = "#9ca4ab"
 
 # Frames
 frame = Frame(root, bg="black")
 frame.pack(expand=True, fill="both")
 
 nav_frame = Frame(frame, bg="black")
-nav_frame.pack(expand=True, fill="x")
+nav_frame.pack(expand=True, fill="x", side=TOP, anchor=N)
+
+content_frame = Frame(frame, bg="black")
+content_frame.place(relx=.5, rely=.22, anchor=N)
 
 # Navigation/Control
-closer = Label(nav_frame, text="x          ", bg="black", fg="white", font=font_style_big)  # bitmap="gray25")
+closer = Label(nav_frame, text="X                ", bg="black", fg=fontcolor,
+               font=tkFont.Font(family="Lucida Grande", size=14, weight="bold"))
 closer.pack(side="right")
 closer.bind("<ButtonRelease-1>", close)
 
-grip = Label(nav_frame, text="          ⛊", bg="black", fg="white", font=font_style_big)  # bitmap="gray25")
+bigger = Label(nav_frame, text="+ ", bg="black", fg=fontcolor,
+               font=tkFont.Font(family="Lucida Grande", size=20, weight="bold"))
+bigger.pack(side="right")
+bigger.bind("<ButtonRelease-1>", size_up)
+
+grip = Label(nav_frame, text="                ⛊", bg="black", fg=fontcolor,
+             font=tkFont.Font(family="Lucida Grande", size=14, weight="bold"))
 grip.pack(side="left")
 grip.bind("<ButtonPress-1>", start_drag)
 grip.bind("<ButtonRelease-1>", stop_drag)
 grip.bind("<B1-Motion>", on_motion)
 
-# Info Labels
-timer_label = Label(frame, text="xxx", bg="black", fg="white", font=font_style_text)
-timer_label.pack()
+smaller = Label(nav_frame, text=" ⚊", bg="black", fg=fontcolor,
+                font=tkFont.Font(family="Lucida Grande", size=25, weight="bold"))
+smaller.pack(side="left")
+smaller.bind("<ButtonRelease-1>", size_down)
 
-name1_label = Label(frame, text="xxx", bg="black", fg="white", font=font_style_text)
-name1_label.pack()
-name2_label = Label(frame, text="xxx", bg="black", fg="white", font=font_style_text)
-name2_label.pack()
+# Info Labels
+timer_label = Label(content_frame, text="xxx", bg="black", fg=fontcolor,
+                    font=tkFont.Font(family="Lucida Grande", size=size, weight="bold"))
+timer_label.pack(side=TOP, anchor=N)
+
+name1_label = Label(content_frame, text="xxx", bg="black", fg=fontcolor,
+                    font=tkFont.Font(family="Lucida Grande", size=size, weight="bold"))
+name1_label.pack(side=TOP, anchor=N)
+name2_label = Label(content_frame, text="xxx", bg="black", fg=fontcolor,
+                    font=tkFont.Font(family="Lucida Grande", size=size, weight="bold"))
+name2_label.pack(side=TOP, anchor=N)
 
 # Looping calls
 update_overlay()

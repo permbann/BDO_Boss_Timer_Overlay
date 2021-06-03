@@ -5,5 +5,6 @@ No need to have a browser or phone at hand to follow a live timer of world boss 
 
 ## Simple usage
 - Download the .exe out of the dist directory and run it.
-- You can move the Overlay by dragging this (⛊) anchor.
-- You can close the Overlay by clicking the X.
+- Move the Overlay by dragging this (⛊) anchor.
+- Close the Overlay by clicking the X.
+- Resize the Overlay with + and -.
