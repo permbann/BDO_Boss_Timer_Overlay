@@ -22,50 +22,69 @@ import tkinter.font as tkFont
 
 UTC = pytz.utc
 
-BOSS_TIMES = {0: {datetime(1900, 1, 1, 0, 15): 'Kutum_Karanda', datetime(1900, 1, 1, 2, 0): 'Karanda',
-                  datetime(1900, 1, 1, 5, 0): 'Kzarka', datetime(1900, 1, 1, 9, 0): 'Kzarka',
-                  datetime(1900, 1, 1, 12, 0): 'Offin', datetime(1900, 1, 1, 16, 0): 'Kutum',
-                  datetime(1900, 1, 1, 19, 0): 'BS Nouver', datetime(1900, 1, 1, 22, 15): 'Kzarka',
-                  datetime(1900, 1, 1, 23, 15): None},
-              1: {datetime(1900, 1, 1, 0, 15): 'Karanda', datetime(1900, 1, 1, 2, 0): 'Kutum',
-                  datetime(1900, 1, 1, 5, 0): 'Kzarka', datetime(1900, 1, 1, 9, 0): 'Nouver',
-                  datetime(1900, 1, 1, 12, 0): 'Kutum', datetime(1900, 1, 1, 16, 0): 'BS Nouver',
-                  datetime(1900, 1, 1, 19, 0): 'Karanda', datetime(1900, 1, 1, 22, 15): 'Garmoth',
-                  datetime(1900, 1, 1, 23, 15): None},
-              2: {datetime(1900, 1, 1, 0, 15): 'Kutum_Kzarka', datetime(1900, 1, 1, 2, 0): 'Karanda',
-                  datetime(1900, 1, 1, 5, 0): 'Kzarka', datetime(1900, 1, 1, 9, 0): 'Karanda',
-                  datetime(1900, 1, 1, 12, 0): None, datetime(1900, 1, 1, 16, 0): 'Kutum_Offin',
-                  datetime(1900, 1, 1, 19, 0): 'Vell', datetime(1900, 1, 1, 22, 15): 'Kzarka_Karanda',
-                  datetime(1900, 1, 1, 23, 15): 'Quint_Muraka'},
-              3: {datetime(1900, 1, 1, 0, 15): 'BS Nouver', datetime(1900, 1, 1, 2, 0): 'Kutum',
-                  datetime(1900, 1, 1, 5, 0): 'Nouver', datetime(1900, 1, 1, 9, 0): 'Kutum',
-                  datetime(1900, 1, 1, 12, 0): 'BS Nouver', datetime(1900, 1, 1, 16, 0): 'Kzarka',
-                  datetime(1900, 1, 1, 19, 0): 'Kutum', datetime(1900, 1, 1, 22, 15): 'Garmoth',
-                  datetime(1900, 1, 1, 23, 15): None},
-              4: {datetime(1900, 1, 1, 0, 15): 'Kzarka_Karanda', datetime(1900, 1, 1, 2, 0): 'Nouver',
-                  datetime(1900, 1, 1, 5, 0): 'Karanda', datetime(1900, 1, 1, 9, 0): 'Kutum',
-                  datetime(1900, 1, 1, 12, 0): 'Karanda', datetime(1900, 1, 1, 16, 0): 'BS Nouver',
-                  datetime(1900, 1, 1, 19, 0): 'Kzarka', datetime(1900, 1, 1, 22, 15): 'Kutum_Kzarka',
-                  datetime(1900, 1, 1, 23, 15): None},
-              5: {datetime(1900, 1, 1, 0, 15): 'Karanda', datetime(1900, 1, 1, 2, 0): 'Offin',
-                  datetime(1900, 1, 1, 5, 0): 'Nouver', datetime(1900, 1, 1, 9, 0): 'Kutum',
-                  datetime(1900, 1, 1, 12, 0): 'Nouver', datetime(1900, 1, 1, 16, 0): 'Quint_Muraka',
-                  datetime(1900, 1, 1, 19, 0): 'Kzarka_Karanda', datetime(1900, 1, 1, 22, 15): None,
-                  datetime(1900, 1, 1, 23, 15): None},
-              6: {datetime(1900, 1, 1, 0, 15): 'Kutum_BS Nouver', datetime(1900, 1, 1, 2, 0): 'Kzarka',
-                  datetime(1900, 1, 1, 5, 0): 'Kutum', datetime(1900, 1, 1, 9, 0): 'Nouver',
-                  datetime(1900, 1, 1, 12, 0): 'Kzarka', datetime(1900, 1, 1, 16, 0): 'Vell',
-                  datetime(1900, 1, 1, 19, 0): 'Garmoth', datetime(1900, 1, 1, 22, 15): 'Kzarka_BS Nouver',
-                  datetime(1900, 1, 1, 23, 15): None}}
-
-
-def get_CEST():
-    """
-    Adds 2h to UTC time.
-    :return: CEST in datetime.time format
-    """
-    cest_time = datetime.now(UTC) + timedelta(hours=2)
-    return cest_time.time()
+BOSS_TIMES = {0: {datetime(1900, 1, 1, 0, 0): 'Karanda',
+                  datetime(1900, 1, 1, 3, 0): 'Kzarka',
+                  datetime(1900, 1, 1, 7, 0): 'Kzarka',
+                  datetime(1900, 1, 1, 10, 0): 'Offin',
+                  datetime(1900, 1, 1, 14, 0): 'Kutum',
+                  datetime(1900, 1, 1, 17, 0): 'Nouver',
+                  datetime(1900, 1, 1, 20, 15): 'Kzarka',
+                  datetime(1900, 1, 1, 21, 15): None,
+                  datetime(1900, 1, 1, 22, 15): 'Karanda'},
+              1: {datetime(1900, 1, 1, 0, 0): 'Kutum',
+                  datetime(1900, 1, 1, 3, 0): 'Kzarka',
+                  datetime(1900, 1, 1, 7, 0): 'Nouver',
+                  datetime(1900, 1, 1, 10, 0): 'Kutum',
+                  datetime(1900, 1, 1, 14, 0): 'Nouver',
+                  datetime(1900, 1, 1, 17, 0): 'Karanda',
+                  datetime(1900, 1, 1, 20, 15): 'Garmoth',
+                  datetime(1900, 1, 1, 21, 15): None,
+                  datetime(1900, 1, 1, 22, 15): 'Kutum_Kzarka'},
+              2: {datetime(1900, 1, 1, 0, 0): 'Karanda',
+                  datetime(1900, 1, 1, 3, 0): 'Kzarka',
+                  datetime(1900, 1, 1, 7, 0): 'Karanda',
+                  datetime(1900, 1, 1, 10, 0): None,
+                  datetime(1900, 1, 1, 14, 0): 'Kutum_Offin',
+                  datetime(1900, 1, 1, 17, 0): 'Vell',
+                  datetime(1900, 1, 1, 20, 15): 'Karanda_Kzarka',
+                  datetime(1900, 1, 1, 21, 15): 'Quint_Muraka',
+                  datetime(1900, 1, 1, 22, 15): 'Nouver'},
+              3: {datetime(1900, 1, 1, 0, 0): 'Kutum',
+                  datetime(1900, 1, 1, 3, 0): 'Nouver',
+                  datetime(1900, 1, 1, 7, 0): 'Kutum',
+                  datetime(1900, 1, 1, 10, 0): 'Nouver',
+                  datetime(1900, 1, 1, 14, 0): 'Kzarka',
+                  datetime(1900, 1, 1, 17, 0): 'Kutum',
+                  datetime(1900, 1, 1, 20, 15): 'Garmoth',
+                  datetime(1900, 1, 1, 21, 15): None,
+                  datetime(1900, 1, 1, 22, 15): 'Kzarka_Karanda'},
+              4: {datetime(1900, 1, 1, 0, 0): 'Nouver',
+                  datetime(1900, 1, 1, 3, 0): 'Karanda',
+                  datetime(1900, 1, 1, 7, 0): 'Kutum',
+                  datetime(1900, 1, 1, 10, 0): 'Karanda',
+                  datetime(1900, 1, 1, 14, 0): 'Nouver',
+                  datetime(1900, 1, 1, 17, 0): 'Kzarka',
+                  datetime(1900, 1, 1, 20, 15): 'Kutum_Kzarka',
+                  datetime(1900, 1, 1, 21, 15): None,
+                  datetime(1900, 1, 1, 22, 15): 'Karanda'},
+              5: {datetime(1900, 1, 1, 0, 0): 'Offin',
+                  datetime(1900, 1, 1, 3, 0): 'Nouver',
+                  datetime(1900, 1, 1, 7, 0): 'Kutum',
+                  datetime(1900, 1, 1, 10, 0): 'Nouver',
+                  datetime(1900, 1, 1, 14, 0): 'Quint_Muraka',
+                  datetime(1900, 1, 1, 17, 0): 'Karanda_Kzarka',
+                  datetime(1900, 1, 1, 20, 15): None,
+                  datetime(1900, 1, 1, 21, 15): None,
+                  datetime(1900, 1, 1, 22, 15): 'Nouver_Kutum'},
+              6: {datetime(1900, 1, 1, 0, 0): 'Kzarka',
+                  datetime(1900, 1, 1, 3, 0): 'Kutum',
+                  datetime(1900, 1, 1, 7, 0): 'Nouver',
+                  datetime(1900, 1, 1, 10, 0): 'Kzarka',
+                  datetime(1900, 1, 1, 14, 0): 'Vell',
+                  datetime(1900, 1, 1, 17, 0): 'Garmoth',
+                  datetime(1900, 1, 1, 20, 15): 'Kzarka_Nouver',
+                  datetime(1900, 1, 1, 21, 15): None,
+                  datetime(1900, 1, 1, 22, 15): 'Kutum_Karanda'}}
 
 
 def get_next_spawn():
@@ -75,10 +94,10 @@ def get_next_spawn():
     """
     today_bosses = BOSS_TIMES[datetime.today().weekday()]
     tomorrow_bosses = BOSS_TIMES[(datetime.today().weekday() + 1) % 6]
-    current_time = get_CEST()
+    current_time = datetime.now(UTC).time()
     for spawn in today_bosses.keys():
         spawn_time = spawn.time()
-        if spawn_time > current_time:
+        if spawn_time > current_time and today_bosses[spawn] is not None:
             return today_bosses[spawn], timedelta(hours=spawn_time.hour - current_time.hour,
                                                   minutes=spawn_time.minute - current_time.minute,
                                                   seconds=spawn_time.second - current_time.second)
