@@ -19,6 +19,9 @@ from datetime import datetime, timedelta
 import pytz
 from tkinter import *
 import tkinter.font as tkFont
+from configparser import ConfigParser
+from appdirs import AppDirs
+from pathlib import Path
 
 UTC = pytz.utc
 
@@ -124,6 +127,32 @@ def get_display_values():
     return names, str(countdown)
 
 
+def read_create_settings():
+    config_object = ConfigParser()
+
+    if not Path(f"{AppDirs('BossHunterOverlay').user_data_dir}/config.ini").is_file():
+        Path(AppDirs('BossHunterOverlay').user_data_dir).mkdir(parents=True, exist_ok=True)
+        config_object["settings"] = {
+            "size": "21",
+            "x": "800",
+            "y": "100"
+        }
+    else:
+        config_object.read(f"{AppDirs('BossHunterOverlay').user_data_dir}/config.ini")
+    return config_object
+
+
+def write_settings():
+    global config, size, root
+    config["settings"] = {
+        "size": f"{size}",
+        "x": f"{root.winfo_x()}",
+        "y": f"{root.winfo_y()}"
+    }
+    with open(f"{AppDirs('BossHunterOverlay').user_data_dir}/config.ini", 'w') as conf:
+        config.write(conf)
+
+
 # --------------UI
 def update_overlay():
     """
@@ -155,6 +184,7 @@ def on_motion(event):
 
 
 def close(_):
+    write_settings()
     root.destroy()
 
 
@@ -180,15 +210,18 @@ def size_down(_):
     name2_label.configure(font=font)
 
 
+# read_create_config
+config = read_create_settings()
+
 # Tk window configs
 root = Tk()
 root.wm_attributes('-transparentcolor', 'black')
-root.geometry("300x200")
+root.geometry(f"300x300+{config['settings']['x']}+{config['settings']['y']}")
 root.overrideredirect(1)
 root.call('wm', 'attributes', '.', '-topmost', True)
 
 # Text settings
-size = 21
+size = int(config["settings"]["size"])
 size_max = 50
 size_min = 10
 fontcolor = "#9ca4ab"
@@ -201,7 +234,7 @@ nav_frame = Frame(frame, bg="black")
 nav_frame.pack(expand=True, fill="x", side=TOP, anchor=N)
 
 content_frame = Frame(frame, bg="black")
-content_frame.place(relx=.5, rely=.22, anchor=N)
+content_frame.place(relx=.5, rely=.1, anchor=N)
 
 # Navigation/Control
 closer = Label(nav_frame, text="X                ", bg="black", fg=fontcolor,
