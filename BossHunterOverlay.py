@@ -23,6 +23,7 @@ from configparser import ConfigParser
 from appdirs import AppDirs
 from pathlib import Path
 
+
 UTC = pytz.utc
 
 BOSS_TIMES = {0: {datetime(1900, 1, 1, 0, 0): 'Karanda',
@@ -96,7 +97,7 @@ def get_next_spawn():
     :return: Boss names string and time until spawn as datetime.timedelta.
     """
     today_bosses = BOSS_TIMES[datetime.now(UTC).weekday()]
-    tomorrow_bosses = BOSS_TIMES[(datetime.now(UTC).weekday() + 1) % 6]
+    tomorrow_bosses = BOSS_TIMES[(datetime.now(UTC).weekday() + 1) % 7]
     current_time = datetime.now(UTC).time()
     for spawn in today_bosses.keys():
         spawn_time = spawn.time()
@@ -210,7 +211,7 @@ def size_down(_):
     name2_label.configure(font=font)
 
 
-# read_create_config
+#read_create_config
 config = read_create_settings()
 
 # Tk window configs
@@ -274,3 +275,4 @@ name2_label.pack(side=TOP, anchor=N)
 # Looping calls
 update_overlay()
 root.mainloop()
+
