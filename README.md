@@ -4,7 +4,7 @@ No need to have a browser or phone at hand to follow a live timer of world boss 
 ![Showcase](/Showcase.PNG)
 
 ## Simple usage
-- [Download](https://github.com/permbann/BDO_Boss_Timer_Overlay/blob/main/dist/BossHunterOverlay.exe) the .exe out of the dist directory and run it.
+- [Download](https://github.com/permbann/BDO_Boss_Timer_Overlay/tree/main/dist) the .exe for your region out of the dist directory and run it.
 - Move the Overlay by dragging this (⛊) anchor.
 - Close the Overlay by clicking the X.
 - Resize the Overlay with + and -.
